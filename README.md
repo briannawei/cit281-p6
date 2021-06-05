@@ -1,37 +1,113 @@
-## Welcome to GitHub Pages
+## Project 6
 
-You can use the [editor on GitHub](https://github.com/briannawei/cit281-p6/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+### p6.js
 ```
+/*
+Name: Brianna Wei
+Professor Phil Colbert
+CIT 281
+p6.js
+*/
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+class Shape {
+    constructor(
+        sides = []
+    ) {
+        this.sides = sides;
+    }
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/briannawei/cit281-p6/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+    perimeter() {
+        return (this.sides.length) ? this.sides.reduce((a,b) => a + b) : 0
+    }
+}
 
-### Support or Contact
+// Test Shape Class
+console.log(new Shape([5, 10]).perimeter());  // 15
+console.log(new Shape([1, 2, 3, 4, 5]).perimeter()); // 15
+console.log(new Shape().perimeter()); // 0
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
+class Rectangle extends Shape {
+    constructor(
+        width = 0,
+        length = 0
+    ){
+        super([length, width, length, width]);
+        this.width = width;
+        this.length = length;
+    }
+
+    area() {
+        let areaOfRect = this.length * this.width;
+        return areaOfRect
+    }
+}
+
+// Testing Rectangle Class
+console.log(new Rectangle(4, 4).perimeter());  // 16
+console.log(new Rectangle(4, 4).area());  // 16
+console.log(new Rectangle(5, 5).perimeter()); // 20
+console.log(new Rectangle(5, 5).area()); // 25
+console.log(new Rectangle().perimeter()); // 0
+console.log(new Rectangle().area()); // 0
+
+
+
+class Triangle extends Shape{
+    constructor(
+        sideA = 0,
+        sideB = 0,
+        sideC = 0
+    ){
+        super([sideA, sideB, sideC]);
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.sideC = sideC;
+    }
+    area() {
+        let s = ( (this.sideA + this.sideB + this.sideC) / (2) )
+        return Math.sqrt(s * (s - this.sideA) * (s - this.sideB) * (s - this.sideC))
+    }
+}
+
+console.log(new Triangle(3, 4, 5).perimeter());  // 12
+console.log(new Triangle(3, 4, 5).area());  // 6
+console.log(new Triangle().perimeter()); // 0
+console.log(new Triangle().area()); // 0
+
+
+
+function test(){
+    const data = [ [3, 4], [5, 5], [3, 4, 5], [10], [] ];
+    const firstIndexPerm = (new Shape([3,4]).perimeter()) * 2;
+    const firstIndexArea = new Rectangle(3,4).area();
+    const secondIndexPerm = (new Shape([5,5]).perimeter()) * 2;
+    const secondIndexArea = new Rectangle(5,5).area();
+    const thirdIndexPerm = new Shape([3,4,5]).perimeter();
+    const thirdIndexArea = new Triangle(3,4,5).area();
+
+    for (const element of data) {
+        switch(element.length){
+            case(2):
+                console.log(`Rectangle with sides ${data[0].toString()} has a perimeter of ${firstIndexPerm} and area of ${firstIndexArea}`)
+                console.log(`Square with sides ${data[1].toString()} has a perimeter of ${secondIndexPerm} and area of ${secondIndexArea}`)
+                break;
+            case(3):
+                console.log(`Triangle with sides ${data[2].toString()} has perimeter of ${thirdIndexPerm} and area of ${thirdIndexArea}`)
+                break;
+            case(1):
+                console.log("Shapes with 1 side unsupported")
+                break;
+            case(0):
+                console.log("Shapes with 0 sides unsupported")
+                break;
+        }
+    }
+}
+
+test()
+
+```
